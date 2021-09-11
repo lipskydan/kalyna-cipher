@@ -1,9 +1,8 @@
 import sys
 from os import path
+from key_expansion import KeyExpand
 
 sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
-
-from key_expansion import KeyExpand
 
 
 class KALYNA_TYPE:
@@ -49,12 +48,6 @@ class Kalyna:
         self._nr = kalyna_type["Nr"]
 
         self._words = KeyExpand(self._nb, self._nk, self._nr).expansion(key)
-
-    @staticmethod
-    def _add_round_key(state, key):
-        for word, key_word in zip(state, key):
-            for j in range(4):
-                word[j] ^= key_word[j]
 
     def encrypt(self, plaintext):
         state = plaintext.copy()
