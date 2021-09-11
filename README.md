@@ -51,7 +51,7 @@
 
 ![Test Image 1](imgs_for_readme/1.png)
 
-### Перетворення ![Test Image 1](imgs_for_readme/2.png) , метод add_round_key_expand() 
+### Перетворення ![Test Image 1](imgs_for_readme/2.png) , метод KeyExpand.add_round_key_expand() 
 
 Це додавання до матриці стану раундового ключа за модулем <math>2^{64}</math>. При додаванні використовується 
 метод запису байтів, при якому інформація в пам'яті зберігається у двійкових даних, розділена на 8 біт (один байт).
@@ -68,11 +68,11 @@
 
 Перетворення &tau;— це перестановка елементів у матриці (циклічний зсув вправо).
 
-### Перетворення &psi; , метод
+### Перетворення &psi; , метод KeyExpand.mix_columns()
 Перетворення &psi;— це лінійне перетворення елементів матриці стану над скінченним полем 
 <math>x^8+x^4+x^3+x^2+1</math>
 
-### Перетворення &kappa;<sup>(K<sub>&upsilon;</sub>)</sup>, метод
+### Перетворення &kappa;<sup>(K<sub>&upsilon;</sub>)</sup>, метод KeyExpand.xor_round_key_expand()
 
 Перетворення &kappa;<sup>(K<sub>&upsilon;</sub>)</sup> — це додавання до матриці стану 
 раундового ключа за модулем 2, також відоме як побітове виключне «або» (XOR)
@@ -88,8 +88,8 @@
 
 ±±±±±±
 
-#### Перетворення -1![Test Image 1](imgs_for_readme/2.png) , метод sub_round_key_expand()
+#### Перетворення -1![Test Image 1](imgs_for_readme/2.png) , метод KeyExpand.sub_round_key_expand()
 #### Перетворення -1&pi;'<sub>l</sub>, метод KeyExpand.inv_sub_bytes()
 #### Перетворення -1&tau;, метод KeyExpand.inv_shift_rows()
-#### Перетворення -1&psi; , метод
-#### Перетворення -1&kappa;<sup>(K<sub>&upsilon;</sub>)</sup>, метод
+#### Перетворення -1&psi; , метод KeyExpand.inv_mix_columns()
+#### Перетворення -1&kappa;<sup>(K<sub>&upsilon;</sub>)</sup>, методKeyExpand.xor_round_key_expand()
