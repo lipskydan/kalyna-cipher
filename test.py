@@ -1,6 +1,6 @@
 import unittest
 
-from main import Kalyna, KALYNA_TYPE
+from kalyna import Kalyna, KALYNA_TYPE
 from tools import string2bytes, bytes2string
 
 

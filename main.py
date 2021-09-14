@@ -1,76 +1,21 @@
-import sys
-from os import path
-from key_expansion import KeyExpand
+from kalyna import Kalyna, KALYNA_TYPE
+from tools import string2bytes, bytes2string
+import time
 
-sys.path.append(path.dirname(path.dirname(path.abspath(__file__))))
+if __name__ == "__main__":
+    time_before = time.time()
 
+    input_data = string2bytes("101112131415161718191A1B1C1D1E1F")
+    key = string2bytes("000102030405060708090A0B0C0D0E0F")
 
-class KALYNA_TYPE:
-    KALYNA_128_128 = {
-        "Nk": 2,  # number of columns in key
-        "Nb": 2,  # number of columns in state
-        "Nr": 10  # number of rounds
-    }
+    encrypted_input = Kalyna(key, KALYNA_TYPE.KALYNA_128_128).encrypt(input_data)
+    decrypted_input = Kalyna(key, KALYNA_TYPE.KALYNA_128_128).decrypt(encrypted_input)
 
-    KALYNA_128_256 = {
-        "Nk": 4,
-        "Nb": 2,
-        "Nr": 14
-    }
+    print(f'input_data: {bytes2string(input_data)}')
+    print(f'encrypted_input: {bytes2string(encrypted_input)}')
+    print(f'decrypted_input: {bytes2string(decrypted_input)}')
 
-    KALYNA_256_256 = {
-        "Nk": 4,
-        "Nb": 4,
-        "Nr": 14
-    }
+    time_after = time.time()
+    print(' working time is ', time_after - time_before, ' seconds')
 
-    KALYNA_256_512 = {
-        "Nk": 8,
-        "Nb": 4,
-        "Nr": 18
-    }
-
-    KALYNA_512_512 = {
-        "Nk": 8,
-        "Nb": 8,
-        "Nr": 18
-    }
-
-
-class Kalyna:
-
-    def __init__(self, key, kalyna_type):
-
-        self._key = key
-
-        self._nk = kalyna_type["Nk"]
-        self._nb = kalyna_type["Nb"]
-        self._nr = kalyna_type["Nr"]
-
-        self._words = KeyExpand(self._nb, self._nk, self._nr).expansion(key)
-
-    def encrypt(self, plaintext):
-        state = plaintext.copy()
-
-        KeyExpand.add_round_key_expand(state, self._words[0])
-        for word in self._words[1:-1]:
-            state = KeyExpand.encipher_round(state, self._nb)
-            KeyExpand.xor_round_key_expand(state, word)
-
-        state = KeyExpand.encipher_round(state, self._nb)
-        KeyExpand.add_round_key_expand(state, self._words[-1])
-
-        return state
-
-    def decrypt(self, ciphertext):
-        state = ciphertext.copy()
-
-        KeyExpand.sub_round_key_expand(state, self._words[-1])
-        for word in self._words[1:-1][::-1]:
-            state = KeyExpand.decipher_round(state, self._nb)
-            KeyExpand.xor_round_key_expand(state, word)
-
-        state = KeyExpand.decipher_round(state, self._nb)
-        KeyExpand.sub_round_key_expand(state, self._words[0])
-
-        return state
+    print(decrypted_input == input_data)
