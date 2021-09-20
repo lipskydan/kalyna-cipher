@@ -86,8 +86,6 @@
 перетвореннями до перетворень &pi;'<sub>l</sub>, &tau;, &psi;, ![Test Image 1](imgs_for_readme/2.png) 
 відповідно.
 
-±±±±±±
-
 #### Перетворення -1![Test Image 1](imgs_for_readme/2.png) , метод KeyExpand.sub_round_key_expand()
 #### Перетворення -1&pi;'<sub>l</sub>, метод KeyExpand.inv_sub_bytes()
 #### Перетворення -1&tau;, метод KeyExpand.inv_shift_rows()
